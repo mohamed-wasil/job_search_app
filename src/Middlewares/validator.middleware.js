@@ -23,7 +23,7 @@ export const validationMiddleware = (schema) => {
             }
             if (validateErrors.length)
                 return res.status(401).json({ message: "validate error", errors: validateErrors })
-            next()
+            next();
         } catch (error) {
             console.log("Error processing in validator middleware", error);
             res.status(500).json({ message: "Server error in validator middleware", error })
