@@ -267,27 +267,36 @@ export const exportCompanyApplications = async (req, res) => {
     const worksheet = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(workbook, worksheet, "Applications");
 
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
+    // const __filename = fileURLToPath(import.meta.url);
+    // const __dirname = path.dirname(__filename);
 
-    const srcIndex = __dirname.indexOf("src");
-   
-    const basePath = __dirname.substring(0, srcIndex + 3); // "+3" to include "src"
+    // const srcIndex = __dirname.indexOf("src");
 
-    const assetsPath = path.join(basePath, "Assets");
-    console.log(assetsPath);
+    // const basePath = __dirname.substring(0, srcIndex + 3); // "+3" to include "src"
+
+    // const assetsPath = path.join(basePath, "Assets");
+    // console.log(assetsPath);
 
 
-    if (!fs.existsSync(assetsPath)) {
-        fs.mkdirSync(assetsPath, { recursive: true });
-        console.log("Assets folder created at:", assetsPath);
-    }
-    
+    // if (!fs.existsSync(assetsPath)) {
+    //     fs.mkdirSync(assetsPath, { recursive: true });
+    //     console.log("Assets folder created at:", assetsPath);
+    // }
+
+    // const fileName = `applications_${emailOfCompany}_${date}.xlsx`;
+    // const filePath = path.join("/tmp", fileName);
+
+    // // Write the Excel file inside the assets folder
+    // xlsx.writeFile(workbook, filePath);
+
     const fileName = `applications_${emailOfCompany}_${date}.xlsx`;
-    const filePath = path.join("/tmp", fileName);
-    
-    // Write the Excel file inside the assets folder
-    xlsx.writeFile(workbook, filePath);
+
+    const excelBuffer = xlsx.write(workbook, { type: "buffer", bookType: "xlsx" });
+
+    res.setHeader("Content-Disposition", `attachment; filename=${fileName}`);
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+    res.send(excelBuffer);
 
     res.status(200).json({ message: "Excel sheet generated" })
 };
