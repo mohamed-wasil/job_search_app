@@ -14,6 +14,7 @@ import { socketConnection } from "../../../Utils/socket.utils.js";
  * @param {string} req.params.receiverId - The ID of the user to fetch chat history with.
  * @param {Object} res - Express response object.
  * @returns {Object} JSON response containing the chat history.
+ * 
  */
 
 export const getChatServices = async (req, res) => {
