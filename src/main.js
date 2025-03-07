@@ -10,6 +10,8 @@ import { userController } from "./modules/User/user.controller.js";
 import { companyController } from "./modules/Company/company.controller.js";
 import { jobController } from "./modules/Job/job.controller.js";
 import { applicationController } from "./modules/Application/application.controller.js";
+import { Server } from "socket.io";
+import { establishIoConnection } from "./Utils/socket.utils.js";
 config()
 
 
@@ -35,21 +37,17 @@ const bootstrap = () => {
     databaseConnection()
 
     const app = express()
+    app.get('/', (req, res) => { res.json({ message: "Welcome in Jop Search App" }) })
+
     app.use(limiter)
     app.use(helmet());
     app.use(express.json())
     app.use(cors(corsOptions))
     app.use("/auth", authController)
-    app.use("/user" , userController)
-    app.use("/company" , companyController)
-    app.use("/job" , jobController)
-    app.use("/application" , applicationController)
-
-    app.get('/', (req, res) => {
-        res.json({ message: "Welcome in Jop Search App" })
-    })
-
-
+    app.use("/user", userController)
+    app.use("/company", companyController)
+    app.use("/job", jobController)
+    app.use("/application", applicationController)
 
     app.all("*", (req, res) => {
         res.status(404).json({ message: "Page Not Found!" })
@@ -60,6 +58,13 @@ const bootstrap = () => {
     const server = app.listen(port, () => {
         console.log("server is running in port", port);
     })
+
+    const io = new Server(server, {
+        cors: {
+            origin: process.env.FRONTEND_ORIGIN_TWO
+        }
+    })
+    establishIoConnection(io)
 }
 
 export default bootstrap
