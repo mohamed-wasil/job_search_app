@@ -9,5 +9,5 @@ export const Decryption = async ({ cipher, secretKey = process.env.ENCRYPTION_SE
 
 const saltRounds = process.env.SALT_ROUND || 10
 export const Hash = async ({ value, salt = saltRounds } = {}) => {
-    return hashSync(value, salt)
+    return hashSync(value, +salt)
 }
