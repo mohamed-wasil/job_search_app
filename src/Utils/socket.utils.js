@@ -1,5 +1,5 @@
 import { authenticationMiddleware } from "../Middlewares/authentication.middleware.js";
-import { sendMessageService } from "../Modules/User/Services/chat.service.js";
+import { sendMessageService } from "../modules/User/Services/chat.service.js";
 
 export const socketConnection = new Map()
 
