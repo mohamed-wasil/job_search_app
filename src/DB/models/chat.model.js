@@ -21,4 +21,5 @@ const chatShema = new mongoose.Schema({
 
 
 const Chat = mongoose.model.Chat || mongoose.model("Chat", chatShema)
+
 export default Chat
