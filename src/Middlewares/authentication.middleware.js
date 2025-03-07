@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-import BlackListTokens from "../DB/Models/black-list-tokens.model.js";
+import BlackListTokens from "../DB/models/blacklist-tokens.model.js";
 import User from "../DB/models/user.model.js";
 
 /**

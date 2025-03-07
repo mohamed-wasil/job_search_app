@@ -8,7 +8,7 @@ import { nanoid } from "nanoid"
 import { OAuth2Client } from "google-auth-library"
 import cron from "node-cron";
 import { uploadToCloudinary } from "../../../Utils/upload-to-cloudinary.utils.js"
-import BlackListTokens from "../../../DB/Models/black-list-tokens.model.js"
+import BlackListTokens from "../../../DB/models/blacklist-tokens.model.js"
 
 /**
  * Handles user registration by creating a new account and sending a verification email.
