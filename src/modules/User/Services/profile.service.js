@@ -1,5 +1,5 @@
 import { compareSync } from "bcrypt";
-import User from "../../../DB/models/user.model.js";
+import User from "../../../DB/models/users.model.js";
 import { Encryption } from "../../../Utils/encryption_hash.utils.js";
 import { uploadToCloudinary } from "../../../Utils/upload-to-cloudinary.utils.js";
 /**
