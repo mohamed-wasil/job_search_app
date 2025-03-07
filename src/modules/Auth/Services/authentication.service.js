@@ -53,7 +53,7 @@ export const signUpService = async (req, res) => {
 
     //create otp and hash it
     const otp = Math.floor(100000 + Math.random() * 900000).toString()
-    const hashedOtp = await Hash({ value: otp })
+    const hashedOtp = await Hash({ value: otp , salt:process.env.SALT_ROUND })
 
     //send email verrify
     sendEmail.emit('sendEmail', {
