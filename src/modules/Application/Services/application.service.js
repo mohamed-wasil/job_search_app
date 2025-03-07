@@ -3,7 +3,7 @@ import { ApplicationStatusEnum, RoleEnum } from "../../../Constants/constants.js
 import Application from "../../../DB/models/application.model.js";
 import Company from "../../../DB/models/company.model.js";
 import JobOpportunity from "../../../DB/models/job-opportunity.model.js";
-import User from "../../../DB/models/users.model.js";
+import User from "../../../DB/models/user.model.js";
 import { uploadToCloudinary } from "../../../Utils/upload-to-cloudinary.utils.js";
 import sendEmail from "../../../Services/semd-email.service.js";
 import { pagination } from "../../../Utils/pagination.utils.js";

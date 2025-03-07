@@ -1,6 +1,6 @@
 import { compareSync, hashSync } from "bcrypt"
 import { OtpEnum, ProviderEnum } from "../../../Constants/constants.js"
-import User from "../../../DB/models/users.model.js"
+import User from "../../../DB/models/user.model.js"
 import sendEmail from "../../../Services/semd-email.service.js"
 import { Hash } from "../../../Utils/encryption_hash.utils.js"
 import { generateToken, verifyToken } from "../../../Utils/generate-tokens.utils.js"
@@ -8,7 +8,7 @@ import { nanoid } from "nanoid"
 import { OAuth2Client } from "google-auth-library"
 import cron from "node-cron";
 import { uploadToCloudinary } from "../../../Utils/upload-to-cloudinary.utils.js"
-import BlackListTokens from "../../../DB/models/blacklist-tokens.model.js"
+import BlackListTokens from "../../../DB/models/black-list-tokens.model.js"
 
 /**
  * Handles user registration by creating a new account and sending a verification email.

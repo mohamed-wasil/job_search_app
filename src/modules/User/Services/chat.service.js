@@ -1,4 +1,4 @@
-import Chat from "../../../DB/models/chats.model.js";
+import Chat from "../../../DB/models/chat.model.js";
 import Company from "../../../DB/models/company.model.js";
 import { authenticationMiddleware } from "../../../Middlewares/authentication.middleware.js";
 import { socketConnection } from "../../../Utils/socket.utils.js";

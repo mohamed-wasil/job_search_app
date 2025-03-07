@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
-import BlackListTokens from "../DB/models/blacklist-tokens.model.js";
-import User from "../DB/models/users.model.js";
+import BlackListTokens from "../DB/models/black-list-tokens.model.js";
+import User from "../DB/models/user.model.js";
 
 /**
  * Validates a user's authentication token by checking its validity and blacklist status.

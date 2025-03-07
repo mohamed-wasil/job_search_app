@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User from "./users.model.js";
+import User from "./user.model.js";
 import JobOpportunity from "./job-opportunity.model.js";
 import { cloudinary } from "../../Config/cloudinary.config.js";
 import { RoleEnum } from "../../Constants/constants.js";

@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import Company from "../../../DB/models/company.model.js";
-import User from "../../../DB/models/users.model.js";
+import User from "../../../DB/models/user.model.js";
 import { uploadToCloudinary } from "../../../Utils/upload-to-cloudinary.utils.js";
 import { RoleEnum } from "../../../Constants/constants.js";
 import { cloudinary } from "../../../Config/cloudinary.config.js";
