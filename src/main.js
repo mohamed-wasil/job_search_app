@@ -37,7 +37,7 @@ const bootstrap = () => {
     databaseConnection()
 
     const app = express()
-    app.use("/Assets", express.static('Assets'))
+   
 
     app.get('/', (req, res) => { res.json({ message: "Welcome in Jop Search App" }) })
 
@@ -45,6 +45,7 @@ const bootstrap = () => {
     app.use(helmet());
     app.use(express.json())
     app.use(cors(corsOptions))
+    app.use("/Assets", express.static('Assets'))
     app.use("/auth", authController)
     app.use("/user", userController)
     app.use("/company", companyController)

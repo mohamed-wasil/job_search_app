@@ -229,14 +229,12 @@ export const exportCompanyApplications = async (req, res) => {
         return res.status(400).json({ message: "Date is required in YYYY-MM-DD format" });
     }
 
-    // Ensure the user is authorized
     const company = await Company.findOne({ companyEmail: emailOfCompany, $or: [{ createdBy: _id }, { HRs: _id }] });
     // return res.json({ company});
     if (!company) {
         return res.status(403).json({ message: "Unauthorized or company not found" });
     }
 
-    // Fetch applications submitted on the specific date
     const applications = await Application.find({
         createdAt: {
             $gte: new Date(`${date}T00:00:00.000Z`),
@@ -252,12 +250,10 @@ export const exportCompanyApplications = async (req, res) => {
             select: "jobTitle"
         }
     ]);
-    // return res.json({ uyser:applications })
     if (applications.length === 0) {
         return res.status(404).json({ message: "No applications found for the selected date" });
     }
 
-    // Convert applications data to an array of objects
     const data = applications.map(app => ({
         ApplicantName: app.userId.firstName,
         Email: app.userId.email,
@@ -267,23 +263,21 @@ export const exportCompanyApplications = async (req, res) => {
         SubmittedAt: app.appliedAt.toISOString()
     }));
 
-    // Create a new workbook and worksheet
     const workbook = xlsx.utils.book_new();
     const worksheet = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(workbook, worksheet, "Applications");
 
-    // Get __dirname equivalent
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
 
-    // Stop at "src"
     const srcIndex = __dirname.indexOf("src");
+   
     const basePath = __dirname.substring(0, srcIndex + 3); // "+3" to include "src"
 
-    // Define assets folder path
     const assetsPath = path.join(basePath, "Assets");
+    console.log(assetsPath);
 
-    // Ensure "assets" folder exists
+
     if (!fs.existsSync(assetsPath)) {
         fs.mkdirSync(assetsPath, { recursive: true });
         console.log("Assets folder created at:", assetsPath);
