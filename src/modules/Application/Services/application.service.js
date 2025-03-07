@@ -284,7 +284,7 @@ export const exportCompanyApplications = async (req, res) => {
     }
     
     const fileName = `applications_${emailOfCompany}_${date}.xlsx`;
-    const filePath = path.join(assetsPath, fileName);
+    const filePath = path.join("/tmp", fileName);
     
     // Write the Excel file inside the assets folder
     xlsx.writeFile(workbook, filePath);
