@@ -37,7 +37,7 @@ const bootstrap = () => {
     databaseConnection()
 
     const app = express()
-   
+    app.set("trust proxy", 1);
 
     app.get('/', (req, res) => { res.json({ message: "Welcome in Jop Search App" }) })
 
