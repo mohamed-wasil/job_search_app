@@ -7,7 +7,7 @@ export const Decryption = async ({ cipher, secretKey = process.env.ENCRYPTION_SE
     return CryptoJS.AES.decrypt(cipher, secretKey).toString(CryptoJS.enc.Utf8)
 }
 
-const saltRounds = process.env.SALT_ROUND || 10
-export const Hash = async ({ value, salt = saltRounds } = {}) => {
+// const saltRounds = process.env.SALT_ROUND || 10
+export const Hash = async ({ value, salt = process.env.SALT_ROUND } = {}) => {
     return hashSync(value, salt)
 }
