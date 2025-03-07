@@ -37,7 +37,7 @@ const bootstrap = () => {
     databaseConnection()
 
     const app = express()
-    app.use("/assets", express.static('assets'))
+    app.use("/Assets", express.static('Assets'))
 
     app.get('/', (req, res) => { res.json({ message: "Welcome in Jop Search App" }) })
 

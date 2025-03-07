@@ -281,7 +281,7 @@ export const exportCompanyApplications = async (req, res) => {
     const basePath = __dirname.substring(0, srcIndex + 3); // "+3" to include "src"
 
     // Define assets folder path
-    const assetsPath = path.join(basePath, "assets");
+    const assetsPath = path.join(basePath, "Assets");
 
     // Ensure "assets" folder exists
     if (!fs.existsSync(assetsPath)) {
