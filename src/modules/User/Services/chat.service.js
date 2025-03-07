@@ -74,20 +74,21 @@ export const sendMessageService = async (socket) => {
 
         if (!chat) {
             const user = await Company.findOne({ $or: [{ cretaedBy: loggedInUser._id }, { HRs: loggedInUser._id }] })
-           if(!user){
-            socket.emit("error", { message: "Only Hr or Company owner start chat" })
-            return;
-           }else{
-            chat = new Chat({
-                senderId: loggedInUser._id,
-                receiverId,
-                messages: [{
-                    body,
-                    senderId: loggedInUser._id
-                }]
-            })
-            chat = await chat.save()
-           }
+            if (!user) {
+                socket.emit("error", { message: "Only Hr or Company owner start chat" })
+                return;
+
+            } else {
+                chat = new Chat({
+                    senderId: loggedInUser._id,
+                    receiverId,
+                    messages: [{
+                        body,
+                        senderId: loggedInUser._id
+                    }]
+                })
+                chat = await chat.save()
+            }
         }
         socket.emit("successMessage", { body, chat })
         const receiverSocketId = socketConnection.get(receiverId.toString())
