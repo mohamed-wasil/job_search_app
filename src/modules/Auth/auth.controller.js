@@ -2,7 +2,6 @@ import { Router } from "express";
 import * as authServices from "./Services/authentication.service.js"
 import { errorHandlerMiddleware } from "../../Middlewares/error-handler.middleware.js";
 import { multerHostMiddleware } from "../../Middlewares/multer.middleware.js";
-import { authenticationMiddleware } from "../../Middlewares/authentication.middleware.js";
 import { confirmEmail, forgetPassword, resetPassword, signinSchema, signUpSchema } from "../../Validators/authentication.schema.js";
 import { validationMiddleware } from "../../Middlewares/validator.middleware.js";
 

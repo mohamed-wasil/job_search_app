@@ -22,7 +22,6 @@ companyController.post(
 companyController.put(
     "/update-company/:emailOfCompany",
     authenticationMiddleware(),
-    multerHostMiddleware(["jpeg", "png"]).fields([{ name: "logo", maxCount: 1 }, { name: "coverPic", maxCount: 1 }]),
     validationMiddleware(updateCompanySchema),
     errorHandlerMiddleware(companyServices.updateCompanyService)
 )

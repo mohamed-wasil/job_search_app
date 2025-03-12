@@ -108,19 +108,28 @@ export const updateCompanyService = async (req, res) => {
     let { companyName, description, industry, address, numberOfEmployees, companyEmail, HRs, employee } = req.body;
     const { _id } = req.loggedInUser;
     const { emailOfCompany } = req.params;
-    const { files } = req;
 
     const company = await Company.findOne({ createdBy: _id, companyEmail: emailOfCompany });
     if (!company) {
         return res.status(400).json({ message: "Company not found or Invalid credentials" });
     }
 
-    if (companyName) company.companyName = companyName
+
+
+    if (companyName) {
+        const nameExist = await Company.findOne({ companyName })
+        if (nameExist) return res.status(400).json({ message: "Company name already exists" });
+        company.companyName = companyName
+    }
     if (description) company.description = description
     if (industry) company.industry = industry
     if (address) company.address = address
     if (numberOfEmployees) company.numberOfEmployees = numberOfEmployees
-    if (companyEmail) company.companyEmail = companyEmail;
+    if (companyEmail) {
+        const emailExist = await Company.findOne({ companyEmail })
+        if (emailExist) return res.status(400).json({ message: "Company email already exists" });
+        company.companyEmail = companyEmail;
+    }
 
 
     if (HRs?.length || HRs) {
@@ -148,12 +157,6 @@ export const updateCompanyService = async (req, res) => {
             await User.findByIdAndUpdate(userId, { company: company._id })
         }
     }
-
-    const folderName = company.mediaCloudFolder || (company.mediaCloudFolder = nanoid(4));
-    const baseFolder = `${process.env.CLOUDINARY_FOLDER}/Company/${folderName}`;
-
-    company.logo = await uploadToCloudinary(files?.logo?.[0]?.path, `${baseFolder}/Logo`) || company.logo;
-    company.coverPic = await uploadToCloudinary(files?.coverPic?.[0]?.path, `${baseFolder}/Cover`) || company.coverPic;
 
     await company.save();
     res.status(200).json({ message: "Company updated successfully" });
@@ -194,7 +197,7 @@ export const softDeleteCompanyService = async (req, res) => {
     await User.updateMany({ company: company._id, _id: { $ne: company.createdBy } }, { $unset: { company: "" }, role: RoleEnum.USER, changeCredentialTime: new Date() });
     res.status(200).json({ message: "Company soft deleted successfully" });
 }
-export const deleteCompanyService= async (req, res) => {
+export const deleteCompanyService = async (req, res) => {
     const { emailOfCompany } = req.params;
     const { _id } = req.loggedInUser;
     const company = await Company.findOneAndDelete({

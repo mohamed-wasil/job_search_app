@@ -89,6 +89,7 @@ userSchema.virtual("userName").get(function () {
 
 // Hash password before saving
 userSchema.pre("save", async function (next) {
+    
     if (this.isModified("password")) {
         this.password = await Hash({ value: this.password })
     }
@@ -98,16 +99,6 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
-// userSchema.post("findOne", async function (doc, next) {
-//     if (doc && doc?.MobileNumber) {
-//         try {
-//             doc.MobileNumber = await Decryption({ cipher: doc.MobileNumber });
-//         } catch (error) {
-//             console.error("Error decrypting MobileNumber:", error);
-//         }
-//     }
-//     next();
-// });
 userSchema.post(/^find/, async function (docs) {
     if (!Array.isArray(docs)) docs = [docs];
 
