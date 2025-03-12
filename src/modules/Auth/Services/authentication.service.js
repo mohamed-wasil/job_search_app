@@ -53,7 +53,7 @@ export const signUpService = async (req, res) => {
 
     //create otp and hash it
     const otp = Math.floor(100000 + Math.random() * 900000).toString()
-    const hashedOtp = await Hash({ value: otp , salt:process.env.SALT_ROUND })
+    const hashedOtp = await Hash({ value: otp, salt: process.env.SALT_ROUND })
 
     //send email verrify
     sendEmail.emit('sendEmail', {
@@ -332,9 +332,11 @@ export const gmailLoginService = async (req, res) => {
  * - Saves the updated user data and responds with a confirmation message.
  */
 export const forgetPasswordService = async (req, res) => {
-    const { _id, email } = req.loggedInUser;
+    const { email } = req.params;
 
-    const user = await User.findById(_id)
+    const user = await User.findOne({ email })
+
+    // return res.json({user})
 
     //create otp and hash it
     const otp = Math.floor(100000 + Math.random() * 900000).toString()
@@ -381,10 +383,9 @@ export const forgetPasswordService = async (req, res) => {
  * - Saves the updated user details and responds with a success message.
  */
 export const resetPasswordService = async (req, res) => {
-    const { _id } = req.loggedInUser;
-    const { password, confirmOtp } = req.body;
+    const { email,password, confirmOtp } = req.body;
 
-    const user = await User.findById(_id)
+    const user = await User.findOne({email})
 
     // Verify OTP
     const otp = user?.OTP?.find(o => o.type === OtpEnum.FORGET_PASSWORD)

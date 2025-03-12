@@ -41,6 +41,7 @@ export const signinSchema = {
 }
 export const resetPassword = {
     body: Joi.object({
+        email: Joi.string().email().required(),
         password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*])[A-Za-z\d@$!%*]{8,}$/).messages({
             "string.pattern.base": "password must be at least 8 char long and contain one uppercase letter , one spical char ",
         }),

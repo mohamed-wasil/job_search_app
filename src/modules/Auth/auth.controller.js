@@ -38,13 +38,11 @@ authController.post(
     errorHandlerMiddleware(authServices.gmailSignUpService)
 )
 authController.post(
-    "/forget-password",
-    authenticationMiddleware(),
+    "/forget-password/:email",
     errorHandlerMiddleware(authServices.forgetPasswordService)
 )
 authController.post(
     "/reset-password",
-    authenticationMiddleware(),
     validationMiddleware(resetPassword),
     errorHandlerMiddleware(authServices.resetPasswordService)
 )

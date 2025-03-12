@@ -267,6 +267,8 @@ export const exportCompanyApplications = async (req, res) => {
     const worksheet = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(workbook, worksheet, "Applications");
 
+    ///////////////////// to test in local and SSStore it in external folder assets ////////////////////
+
     // const __filename = fileURLToPath(import.meta.url);
     // const __dirname = path.dirname(__filename);
 
