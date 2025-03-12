@@ -34,11 +34,9 @@ export const updateCompanySchema = {
         industry: Joi.string().trim(),
         address: Joi.string().trim(),
         numberOfEmployees: Joi.string().valid('1-10', '11-20', '21-50', '51-100', '101-200', '201-500', '501+'),
-        mobileNumber: Joi.string().regex(/^01[0125]{1}[0-9]{8}/).messages({
-            "string.pattern.base": "Accepted only egyption numbers "
-        }),
         companyEmail: Joi.string().email(),
         HRs: Joi.any(),
+        employee: Joi.array().items(Joi.string().alphanum().length(24)),
     }),
     params: Joi.object({
         emailOfCompany: Joi.string().email().required()
