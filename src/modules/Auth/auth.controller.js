@@ -3,7 +3,7 @@ import * as authServices from "./Services/authentication.service.js"
 import { errorHandlerMiddleware } from "../../Middlewares/error-handler.middleware.js";
 import { multerHostMiddleware } from "../../Middlewares/multer.middleware.js";
 import { authenticationMiddleware } from "../../Middlewares/authentication.middleware.js";
-import { confirmEmail, resetPassword, signinSchema, signUpSchema } from "../../Validators/authentication.schema.js";
+import { confirmEmail, forgetPassword, resetPassword, signinSchema, signUpSchema } from "../../Validators/authentication.schema.js";
 import { validationMiddleware } from "../../Middlewares/validator.middleware.js";
 
 export const authController = Router()
@@ -39,10 +39,11 @@ authController.post(
 )
 authController.post(
     "/forget-password/:email",
+    validationMiddleware(forgetPassword),
     errorHandlerMiddleware(authServices.forgetPasswordService)
 )
 authController.post(
-    "/reset-password",
+    "/reset-password/:email",
     validationMiddleware(resetPassword),
     errorHandlerMiddleware(authServices.resetPasswordService)
 )

@@ -39,13 +39,20 @@ export const signinSchema = {
         password: Joi.string().required()
     })
 }
+export const forgetPassword = {
+    params: Joi.object({
+        email: Joi.string().email().required(),
+    })
+}
 export const resetPassword = {
     body: Joi.object({
-        email: Joi.string().email().required(),
         password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*])[A-Za-z\d@$!%*]{8,}$/).messages({
             "string.pattern.base": "password must be at least 8 char long and contain one uppercase letter , one spical char ",
         }),
         confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
         confirmOtp: Joi.string().max(6).required()
+    }),
+    params: Joi.object({
+        email: Joi.string().email().required(),
     })
 }

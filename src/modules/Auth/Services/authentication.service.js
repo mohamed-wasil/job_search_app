@@ -383,7 +383,8 @@ export const forgetPasswordService = async (req, res) => {
  * - Saves the updated user details and responds with a success message.
  */
 export const resetPasswordService = async (req, res) => {
-    const { email,password, confirmOtp } = req.body;
+    const { email } = req.params;
+    const {password, confirmOtp } = req.body;
 
     const user = await User.findOne({email})
 
